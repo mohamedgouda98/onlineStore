@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProductColorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +28,13 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['auth', 'adminAuth']], functi
         return view('admin.categories');
     })->name('admin.categories');
 
+    Route::group(['prefix'=>"productColor",'middleware'=>['auth','adminAuth']],function (){
+        Route::get('/',[ProductColorController::class,'index'])->name('admin.productColor');
+        Route::post('/store',[ProductColorController::class,'store'])->name('admin.productcolor.add');
+        Route::get('/edit/{id}',[ProductColorController::class,'edit'])->name('admin.productColor.editPage');
+        Route::put('/edit/{id}',[ProductColorController::class,'update'])->name('admin.productcolor.edit');
+        Route::delete('/delete/{id}',[ProductColorController::class,'delete'])->name('admin.productcolor.delete');
+    });
 
 });
 
