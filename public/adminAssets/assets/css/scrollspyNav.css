@@ -45,12 +45,14 @@
 
 #content > .container {
   display: flex;
-  max-width: 58.333333% !important;
+
+  min-width: 58.333333% !important;
+  max-width: 88.333333% !important;
   margin-right: 80px;
   padding: 0 16px !important; }
-  #content > .container > .container {
-    padding: 0;
-    margin: 0; }
+  #content > .container > .row{
+    width: 100%;
+  }
 
 @media (max-width: 575px) {
   .sidenav .sidenav-content a {
@@ -64,5 +66,4 @@
   #content > .container {
     max-width: 100% !important;
     margin-right: auto; }
-    #content > .container > .container {
-      max-width: 100%; } }
+  }
