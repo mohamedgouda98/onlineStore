@@ -108,4 +108,15 @@ class ProductColorController extends Controller
         session()->flash('done', 'ProductColor Has Been Deleted !');
         return redirect(route('admin.productColor'));
     }
+
+    public function productDetails($slug)
+    {
+//        $product = Product::where('slug', $slug)->with('colors')->first();
+
+        $product = Product::where('slug', $slug)->whereHas('colors', function($query){
+            return $query->where('quantity' , '>', 0);
+        })->with('colors')->first();
+
+        return view('product-detail', compact('product'));
+    }
 }

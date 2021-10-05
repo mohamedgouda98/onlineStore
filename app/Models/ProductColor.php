@@ -12,7 +12,7 @@ class ProductColor extends Model
 
 public function product()
 {
-    return $this->belongsTo(Product::class,'product_id','id')->select('id','name','slug');
+    return $this->belongsTo(Product::class,'product_id','id')->select('id','name','slug','price');
 }
 public function color()
 {
