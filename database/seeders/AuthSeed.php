@@ -19,7 +19,7 @@ class AuthSeed extends Seeder
     public function run()
     {
         //Setup Roles>>>
-        $roles = ['admin', 'user'];
+        $roles = ['owner','admin', 'user'];
 
         foreach ($roles as $role)
         {
@@ -27,6 +27,18 @@ class AuthSeed extends Seeder
                 'name' => $role
             ]);
         }
+
+        // create Owner acount
+        $ownerRole = Role::where('name', 'owner')->first();
+        $owner = User::create([
+            'name' => 'owner',
+            'email' => 'owner@gmail.com',
+            'password' => Hash::make('12345678'),
+        ]);
+        UserRole::create([
+            'role_id' => $ownerRole->id,
+            'user_id' => $owner->id
+        ]);
 
         // create Admins acount
         $adminRole = Role::where('name', 'admin')->first();

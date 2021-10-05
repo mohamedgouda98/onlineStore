@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class AdminMiddleware
+class OwnerMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,13 +16,9 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!in_array('admin'||'owner', auth()->user()->UserRoles))
+        if(!in_array('owner', auth()->user()->UserRoles))
         {
-            return redirect(route('admin.login'));
-        }
-        if(!auth()->user()->status)
-        {
-            return redirect(route('admin.login'));
+            return redirect()->back();
         }
         return $next($request);
     }

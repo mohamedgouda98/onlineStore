@@ -32,6 +32,7 @@ class AuthController extends Controller
         ]);
 
         $userData = $request->only('email', 'password');
+        $userData['status']=1;
         if(Auth::attempt($userData))
         {
             return redirect(route('admin.home'));
