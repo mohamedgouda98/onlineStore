@@ -8,9 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
+    protected $fillable = ['name', 'slug', 'main_image', 'description', 'status', 'price', 'category_id'];
 
-    public function colors()
+    public function category()
     {
-        return $this->hasMany(ProductColor::class, 'product_id', 'id')->with('color');
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
+    public function productColors()
+    {
+        return   $this->hasMany(ProductColor::class, 'product_id', 'id')->with('color');
+       
     }
 }

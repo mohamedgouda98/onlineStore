@@ -20,14 +20,14 @@
 <script src="{{ asset('adminAssets/assets/js/dashboard/dash_1.js') }}"></script>
 <script src="{{ asset('adminAssets/plugins/file-upload/file-upload-with-preview.min.js') }}"></script>
 <script src="{{ asset('adminAssets/plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
-<script src="{{ asset('adminAssets/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js')}}"></script>
-<script src="{{ asset('adminAssets/plugins/bootstrap-touchspin/custom-bootstrap-touchspin.js')}}"></script>
+<script src="{{ asset('adminAssets/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js') }}"></script>
+<script src="{{ asset('adminAssets/plugins/bootstrap-touchspin/custom-bootstrap-touchspin.js') }}"></script>
 <script>
     var firstUpload = new FileUploadWithPreview('myFirstImage');
     $("input[name='quantity']").TouchSpin({
-    buttondown_class: "btn btn-classic btn-danger",
-    buttonup_class: "btn btn-classic btn-success"
-});
+        buttondown_class: "btn btn-classic btn-danger",
+        buttonup_class: "btn btn-classic btn-success"
+    });
 </script>
 
 <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
