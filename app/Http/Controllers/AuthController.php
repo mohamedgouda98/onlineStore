@@ -43,6 +43,8 @@ class AuthController extends Controller
 
     public function userLogin(Request $request)
     {
+
+
         $userData = $request->only('email', 'password');
         if(Auth::attempt($userData))
         {

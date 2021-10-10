@@ -16,7 +16,8 @@
     <!-- CSS Libraries -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="{{asset('userAssets/lib/slick/slick.css')}}" rel="stylesheet">
+    <link href="{{asset('userAssets/lib/slick/slick.css"')}}" rel="stylesheet">
+    <link href="{{asset('userAssets/lib/slick/slick.css"')}}" rel="stylesheet">
 
     <!-- Template Stylesheet -->
     <link href="{{asset('userAssets/css/style.css')}}" rel="stylesheet">

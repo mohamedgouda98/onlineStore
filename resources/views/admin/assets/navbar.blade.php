@@ -18,16 +18,7 @@
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
     <link href="{{asset('adminAssets/plugins/apex/apexcharts.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('adminAssets/assets/css/dashboard/dash_1.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('adminAssets/assets/css/tables/table-basic.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('adminAssets/assets/css/forms/theme-checkbox-radio.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('adminAssets/assets/css/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('adminAssets/plugins/file-upload/file-upload-with-preview.min.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('adminAssets/plugins/bootstrap-select/bootstrap-select.min.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('adminAssets/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css')}}" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
-    
-    
-    
 
 </head>
 <body class="alt-menu sidebar-noneoverflow">
@@ -246,7 +237,9 @@
                         <li class="active">
                             <a href="index.html"> Analytics </a>
                         </li>
-                        
+                        <li>
+                            <a href="index2.html"> Sales </a>
+                        </li>
                     </ul>
                 </li>
 
@@ -255,7 +248,7 @@
                 </li>
 
                 <li class="menu">
-                    <a href="{{route('admin.categories')}}" aria-expanded="false" class="dropdown-toggle">
+                    <a href="" aria-expanded="false" class="dropdown-toggle">
                         <div class="">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
                             <span>Categories</span>
@@ -263,10 +256,10 @@
                     </a>
                 </li>
                 <li class="menu">
-                    <a href="{{route('admin.productColor')}}" aria-expanded="false" class="dropdown-toggle">
+                    <a href="{{route('admin.products')}}" aria-expanded="false" class="dropdown-toggle">
                         <div class="">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                            <span>Product Colors</span>
+                            <span>Products</span>
                         </div>
                     </a>
                 </li>

@@ -1,9 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\ProductColorController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,35 +25,18 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['auth', 'adminAuth']], functi
     })->name('admin.home');
 
 
-    Route::get('/categories', function(){
-        return view('admin.categories');
-    })->name('admin.categories');
-
-    Route::group(['prefix'=>"productColor",'middleware'=>['auth','adminAuth']],function (){
-        Route::get('/',[ProductColorController::class,'index'])->name('admin.productColor');
-        Route::post('/store',[ProductColorController::class,'store'])->name('admin.productcolor.add');
-        Route::get('/edit/{id}',[ProductColorController::class,'edit'])->name('admin.productColor.editPage');
-        Route::put('/edit/{id}',[ProductColorController::class,'update'])->name('admin.productcolor.edit');
-        Route::delete('/delete/{id}',[ProductColorController::class,'delete'])->name('admin.productcolor.delete');
-    });
-
+    Route::get('/products', [ProductController::class,'index'])->name('admin.products');
+    Route::post('/product/store', [ProductController::class,'store'])->name('admin.product.store');
+    Route::get('/product/edite/{id}', [ProductController::class,'edite'])->name('admin.product.edite');
+    Route::put('/product/update', [ProductController::class,'update'])->name('admin.product.update');
+    Route::get('/product/delete/{id}', [ProductController::class,'delete'])->name('admin.product.delete');
 });
 
-Route::group(['prefix'=> 'user', 'middleware' => 'auth'], function(){
+Route::group(['prefix'=> 'user'], function(){
    Route::get('/account', function(){
        return view('my-account');
    })->name('user.account');
-
-   Route::post('cart/add', [OrderController::class, 'addToCart'])->name('cart.add');
-
 });
-
-Route::group([],function(){
-    Route::get('/', [HomeController::class, 'index'])->name('index');
-    Route::get('/products/{category_id}', [HomeController::class, 'categoryProducts'])->name('products');
-    Route::get('/product/details/{slug}', [ProductColorController::class, 'productDetails'])->name('product.details');
-});
-
 
 Route::get('/admin/login', [AuthController::class, 'adminLoginPage'])->name('admin.loginPage');
 Route::post('/admin/login', [AuthController::class, 'adminLogin'])->name('admin.login');
