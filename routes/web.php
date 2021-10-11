@@ -7,6 +7,7 @@ use App\Http\Controllers\adminControllers\OrderController;
 use App\Http\Controllers\adminControllers\UsersController;
 use App\Http\Controllers\adminControllers\AdminsController;
 use App\Http\Controllers\adminControllers\CategoryController;
+use App\Http\Controllers\adminControllers\ColorController;
 use App\Http\Controllers\adminControllers\ProductColorController;
 use App\Http\Controllers\adminControllers\ProductController;
 use App\Http\Controllers\adminControllers\WishListsController;
@@ -62,6 +63,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'a
     Route::group(['prefix' => "wishlists"], function () {
         Route::get('/', [WishListsController::class, 'index'])->name('wishLists');
     });
+    Route::group(['prefix' => 'colors'], function () {
+        Route::get('/', [ColorController::class, 'index'])->name('colors.index');
+        Route::post('/store', [ColorController::class, 'store'])->name('colors.store');
+        Route::delete('/delete/{id}', [ColorController::class, 'delete'])->name('colors.delete');
+
+    });
 });
 
 Route::group(['prefix' => 'owner', 'middleware' => ['auth', 'ownerAuth']], function () {
@@ -73,7 +80,12 @@ Route::group(['prefix' => 'owner', 'middleware' => ['auth', 'ownerAuth']], funct
     });
 });
 
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
+    Route::get('/login', [AuthController::class, 'adminLoginPage'])->name('loginPage');
+    Route::post('/login', [AuthController::class, 'adminLogin'])->name('login');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+});
 
 /////// USER ROUTES /////////
 
@@ -91,12 +103,7 @@ Route::group([], function () {
     Route::get('/product/details/{slug}', [ProductColorController::class, 'productDetails'])->name('product.details');
 });
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
-    Route::get('/login', [AuthController::class, 'adminLoginPage'])->name('loginPage');
-    Route::post('/login', [AuthController::class, 'adminLogin'])->name('login');
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-});
 Route::get('/login', [AuthController::class, 'userLoginPage'])->name('user.loginPage');
 Route::post('/login', [AuthController::class, 'userLogin'])->name('user.login');
 Route::post('/register', [AuthController::class, 'register'])->name('user.register');

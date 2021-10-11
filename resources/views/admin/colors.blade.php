@@ -15,7 +15,7 @@
                         <div class="widget-header">
                             <div class="row">
                                 <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                    <h4>Add Category</h4>
+                                    <h4>Add Color</h4>
                                 </div>
                             </div>
                         </div>
@@ -39,26 +39,12 @@
 
                             <div class="row">
                                 <div class="col-lg-6 col-12 mx-auto">
-                                    <form method="post" action="{{ route('admin.category.store') }}"
+                                    <form method="post" action="{{ route('admin.colors.store') }}"
                                         enctype="multipart/form-data">
                                         @csrf
                                         <div class="form-group">
-                                            <label for="t-text">Category Name :</label>
-                                            <input id="t-text" type="text" name="name" placeholder="Enter category name" class="form-control" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="t-text">Category Icon :</label>
-                                            <input id="t-text" type="text" name="icon" placeholder="Enter category icon" class="form-control" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="custom-file-container" data-upload-id="myFirstImage">
-                                                <label>Category Image : <a href="javascript:void(0)" class="custom-file-container__image-clear" title="Clear Image">x</a></label>
-                                                <label class="custom-file-container__custom-file" >
-                                                    <input type="file" class="custom-file-container__custom-file__custom-file-input" name="image" accept="image/*">
-                                                    <span class="custom-file-container__custom-file__custom-file-control"></span>
-                                                </label>
-                                                <div class="custom-file-container__image-preview"></div>
-                                            </div>
+                                            <label for="t-text">Color Name :</label>
+                                            <input id="t-text" type="text" name="name" placeholder="Enter color name" class="form-control" required>
                                         </div>
                                         <button class="btn btn-primary mt-3 mb-2" type="submit">Add</button>
                                     </form>
@@ -75,56 +61,33 @@
                         <div class="widget-header">
                             <div class="row">
                                 <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                    <h4>Categpries Table</h4>
+                                    <h4>Colors Table</h4>
                                 </div>
                             </div>
                         </div>
                         <div class="widget-content widget-content-area">
                             <div class="table-responsive">
-                                @if (count($categories) != 0)
+                                @if(count($colors) != 0)
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
                                             <th class="text-center">#</th>
                                             <th class="text-center">Name</th>
-                                            <th class="text-center">Icon</th>
-                                            <th class="text-center">Image</th>
-                                            <th class="text-center">Products Count</th>
-                                            <th class="text-center">Related Product Colors</th>
+                                            <th class="text-center">Count of ProductColors</th>
                                             <th class="text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($categories as $category)
+                                        @foreach ($colors as $color)
                                             <tr>
-                                                <td class="text-center">{{ $category->id }}</td>
-                                                <td class="text-center">{{ $category->name }}</td>
-                                                <td class="text-center">{{ $category->icon }}</td>
-                                                <td class="text-center"><img
-                                                        src="{{ asset('images/CategoriesImages/' . $category->image) }}"
-                                                        style="max-height:50px" alt=""></td>
-                                                <td class="text-center">{{ $category->countOfProducts }}</td>
-                                                <td class="text-center">{{ $category->countOfAllProductColors }}</td>
+                                                <td class="text-center">{{ $color->id }}</td>
+                                                <td class="text-center">{{ $color->name }}</td>
+                                                <td class="text-center">{{ $color->countOfProductColors }}</td>
                                                 <td class="text-center">
                                                     <ul class="table-controls">
                                                         <li>
-                                                            <form method="get"
-                                                                action="{{ route('admin.category.edit', $category->id) }}">
-                                                                <button class="btn btn-dark" type="submit"><svg
-                                                                        xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" viewBox="0 0 24 24" fill="none"
-                                                                        stroke="currentColor" stroke-width="2"
-                                                                        stroke-linecap="round" stroke-linejoin="round"
-                                                                        class="feather feather-edit-2">
-                                                                        <path
-                                                                            d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z">
-                                                                        </path>
-                                                                    </svg></button>
-                                                            </form>
-                                                        </li>
-                                                        <li>
                                                             <form method="post"
-                                                                action="{{ route('admin.category.delete', $category->id) }}">
+                                                                action="{{ route('admin.colors.delete', $color->id) }}">
                                                                 @method('DELETE')
                                                                 @csrf
                                                                 <button class="btn btn-dark" type="submit"><svg
@@ -150,7 +113,7 @@
                                     </tbody>
                                 </table>
                                 @else
-                                <h2>There is no Categories Yet !</h2>
+                                <h2>There is no Colors Yet !</h2>
                                 @endif
                             </div>
                         </div>
@@ -162,3 +125,4 @@
 </div>
 <!--  END CONTENT AREA  -->
 @include('admin.assets.footer')
+
