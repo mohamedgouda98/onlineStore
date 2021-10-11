@@ -9,11 +9,9 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    private $productModel;
-    private $colorModel;
     private $CategoryModel;
-    private $productColorModel;
     use categoryTrait;
+    
     public function __construct(Category $category)
     {
         $this->categoryModel = $category;
