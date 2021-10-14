@@ -13,25 +13,9 @@
             <div id="basic" class="col-lg-12 layout-spacing">
                 <div class="statbox widget box box-shadow">
                     <div class="widget-header">
-                        @if (Session::has('done'))
-                            <div class="alert alert-success text-center" role="alert">
-                                {{ Session::get('done') }}
-                            </div>
-                        @elseif(Session::has('error'))
-                            <div class="alert alert-danger text-center" role="alert">
-                                {{ Session::get('error') }}
-                            </div>
-                        
-                        @elseif ($errors->any())
-                            @foreach ($errors->all() as $error)
-                                <div class="alert alert-danger text-center" role="alert">
-                                    {{ $error }}
-                                </div>
-                            @endforeach
-                        @endif
                         <div class="row">
                             <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                <h4>Add Product Colors</h4>
+                                <h4>Edit Product Item</h4>
                             </div>
                         </div>
                     </div>
@@ -39,73 +23,87 @@
 
                         <div class="row">
                             <div class="col-lg-6 col-12 mx-auto">
-                                <form method="post" action="{{ route('admin.productcolor.add') }}"
+                                @if ($errors->any())
+                                    @foreach ($errors->all() as $error)
+                                        <div class="alert alert-danger text-center" role="alert">
+                                            {{ $error }}
+                                        </div>
+                                    @endforeach
+                                @endif
+                                <form method="post" action="{{ route('admin.product.edit', $productItem->id) }}"
                                     enctype="multipart/form-data">
+                                    @method('PUT')
                                     @csrf
 
-                                    <div class="form-group">
-                                        <label for="t-text">Product :</label>
+                                    <div class="form-group mb-4">
+                                        <label for="Pname">Name :</label>
+                                        <input class="form-control" type="text" name="name" id="Pname"
+                                            value="{{ $productItem->name }}">
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label for="Pslug">Slug :</label>
+                                        <input class="form-control" type="text" name="slug" id="Pslug"
+                                            value="{{ $productItem->slug }}">
+                                    </div>
+
+                                    <div class="form-group mb-4">
+                                        <label for="t-text">Category :</label>
                                         <select data-live-search="true" class="selectpicker form-control"
-                                            name="product_id" id="t-text">
-                                            @foreach ($products as $product)
-                                                <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                            name="category_id" value="
+                                            {{ $productItem->category->id }}" id="t-text">
+                                            @foreach ($categories as $category)
+                                                <option @if ($productItem->category->id == $category->id) selected
+                                            @endif
+                                            value="{{ $category->id }}">{{ $category->name }}</option>
                                             @endforeach
                                         </select>
-
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="t-text">Color :</label>
-                                        <select data-live-search="true" class="selectpicker form-control"
-                                            name="color_id" id="t-text">
-
-                                            @foreach ($colors as $color)
-                                                <option value="{{ $color->id }}">
-                                                    {{ $color->name }}</option>
-                                            @endforeach
-                                        </select>
-
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="t-text">Quantity :</label>
-                                        <div class="mb-4">
-                                            <input id="demo6" type="number" name="quantity" class="input-sm form-control">
-                                        </div>
-
-
                                     </div>
 
-                                    <div class="form-group">
-                                        <div class="custom-file-container" data-upload-id="myFirstImage">
-                                            <label>Upload (Single File) <a href="javascript:void(0)" class="custom-file-container__image-clear" title="Clear Image">x</a></label>
-                                            <label class="custom-file-container__custom-file" >
-                                                <input type="file" class="custom-file-container__custom-file__custom-file-input" name="image" accept="image/*">
-                                                <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
-                                                <span class="custom-file-container__custom-file__custom-file-control"></span>
-                                            </label>
-                                            <div class="custom-file-container__image-preview"></div>
+                                    <div class="form-group mb-4">
+                                        <label for="price">Price :</label>
+                                        <div class="input-group mb-4">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">$</span>
+                                            </div>
+                                            <input type="text" class="form-control" name="price" id="price"
+                                                aria-label="Amount (to the nearest dollar)"
+                                                value="{{ $productItem->price }}">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">.00</span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <button class="btn btn-primary mt-3" type="submit">Add</button>
+
+                                    <div class="form-group mb-4">
+                                        <label for="exampleFormControlTextarea1">Description :</label>
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3">{{$productItem->description}}</textarea>
+                                    </div>
+
+                                    <div class="form-group mb-4  mt-3">
+                                        <label for="formFile" class="form-label">Image :</label>
+                                        <input type="hidden" name="main_image" value="{{ $productItem->main_image }}">
+                                        <input id="formFile" name="newImage" type="file" class="form-control"
+                                            accept="image/*">
+                                        <div class="w-50 m-auto my-3"><img class="w-100 mt-3"
+                                                src="{{ asset('images/ProductsImages/' . $productItem->main_image) }}"
+                                                alt="nice"></div>
+                                    </div>
+                                    <button class="btn btn-warning mt-3" type="submit">Update</button>
                                 </form>
                             </div>
                         </div>
 
                     </div>
-                </div>
-            </div>
-
-            <div id="tableProgress" class="col-lg-12 col-12 layout-spacing">
-                <div class="statbox widget box box-shadow">
-                    <div class="widget-header">
+                    <div class="widget-header mt-3">
                         <div class="row">
                             <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                <h4>Product Colors Table</h4>
+                                <h4>ProductColors of {{$productItem->name}}</h4>
                             </div>
                         </div>
                     </div>
                     <div class="widget-content widget-content-area">
                         <div class="table-responsive">
-                            @if (count($productColors) != 0)
+                            @if (count($productItem->productColors) != 0)
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
@@ -118,7 +116,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($productColors as $productColor)
+                                        @foreach ($productItem->productColors as $productColor)
                                             <tr>
                                                 <td class="text-center">{{ $productColor->id }}</td>
                                                 <td class="text-center">{{ $productColor->product->name }}</td>
@@ -134,6 +132,7 @@
                                                         <li>
                                                             <form method="get"
                                                                 action="{{ route('admin.productColor.editPage', $productColor->id) }}">
+                                                                @csrf
                                                                 <button class="btn btn-dark" type="submit"><svg
                                                                         xmlns="http://www.w3.org/2000/svg" width="24"
                                                                         height="24" viewBox="0 0 24 24" fill="none"
@@ -178,7 +177,7 @@
                                     </tbody>
                                 </table>
                             @else
-                                <h2>There is no Product Color Yet !</h2>
+                                <h2>There is no Product Color for {{$productItem->name}} Yet !</h2>
                             @endif
                         </div>
 

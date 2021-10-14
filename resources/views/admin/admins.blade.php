@@ -31,7 +31,7 @@
                         @endif
                         <div class="row">
                             <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                <h4>Add Product Colors</h4>
+                                <h4>Add Admins</h4>
                             </div>
                         </div>
                     </div>
@@ -39,51 +39,30 @@
 
                         <div class="row">
                             <div class="col-lg-6 col-12 mx-auto">
-                                <form method="post" action="{{ route('admin.productcolor.add') }}"
-                                    enctype="multipart/form-data">
+                                <form method="post" action="{{ route('owner.admins.add') }}">
                                     @csrf
-
                                     <div class="form-group">
-                                        <label for="t-text">Product :</label>
+                                        <label style="direction:ltr"  for="fullName">Full Name :</label>
+                                        <input type="text" name="name" class="form-control" id="fullName" placeholder="Ex: Alan Green">
+                                    </div>
+                                    <div class="form-group">
+                                        <label style="direction:ltr"  for="email">email :</label>
+                                        <input type="email" name="email" class="form-control" id="Email" placeholder="Ex: Alan@gmail.com">
+                                    </div> 
+                                    <div class="form-group">
+                                        <label style="direction:ltr"  for="password">Password :</label>
+                                        <input type="password" name="password" class="form-control" id="password" placeholder="Ex: password">
+                                    </div> 
+                                    <div class="form-group">
+                                        <label style="direction:ltr"  for="t-text">Role :</label>
                                         <select data-live-search="true" class="selectpicker form-control"
-                                            name="product_id" id="t-text">
-                                            @foreach ($products as $product)
-                                                <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                            name="role_id" id="t-text">
+
+                                            @foreach ($roles as $role)
+                                                <option value="{{ $role->id }}">
+                                                    {{ $role->name }}</option>
                                             @endforeach
                                         </select>
-
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="t-text">Color :</label>
-                                        <select data-live-search="true" class="selectpicker form-control"
-                                            name="color_id" id="t-text">
-
-                                            @foreach ($colors as $color)
-                                                <option value="{{ $color->id }}">
-                                                    {{ $color->name }}</option>
-                                            @endforeach
-                                        </select>
-
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="t-text">Quantity :</label>
-                                        <div class="mb-4">
-                                            <input id="demo6" type="number" name="quantity" class="input-sm form-control">
-                                        </div>
-
-
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="custom-file-container" data-upload-id="myFirstImage">
-                                            <label>Upload (Single File) <a href="javascript:void(0)" class="custom-file-container__image-clear" title="Clear Image">x</a></label>
-                                            <label class="custom-file-container__custom-file" >
-                                                <input type="file" class="custom-file-container__custom-file__custom-file-input" name="image" accept="image/*">
-                                                <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
-                                                <span class="custom-file-container__custom-file__custom-file-control"></span>
-                                            </label>
-                                            <div class="custom-file-container__image-preview"></div>
-                                        </div>
                                     </div>
                                     <button class="btn btn-primary mt-3" type="submit">Add</button>
                                 </form>
@@ -99,56 +78,64 @@
                     <div class="widget-header">
                         <div class="row">
                             <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                <h4>Product Colors Table</h4>
+                                <h4>Admins Table</h4>
                             </div>
                         </div>
                     </div>
                     <div class="widget-content widget-content-area">
                         <div class="table-responsive">
-                            @if (count($productColors) != 0)
+                            @if (count($admins) != 0)
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
                                             <th class="text-center">#</th>
                                             <th class="text-center">Name</th>
-                                            <th class="text-center">Color</th>
-                                            <th class="text-center">Quantity</th>
-                                            <th class="text-center">Image</th>
+                                            <th class="text-center">Email</th>
+                                            <th class="text-center">Role</th>
+                                            <th class="text-center">Status</th>
+                                            <th class="text-center">Created</th>
                                             <th class="text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($productColors as $productColor)
+                                        @foreach ($admins as $admin)
                                             <tr>
-                                                <td class="text-center">{{ $productColor->id }}</td>
-                                                <td class="text-center">{{ $productColor->product->name }}</td>
-                                                <td style="background-color:{{ $productColor->color->name }}"
-                                                    class="text-center">{{ $productColor->color->name }}</td>
-                                                <td class="text-center">{{ $productColor->quantity }}</td>
-                                                <td class="text-center"><img
-                                                        src="{{ asset('images/productColorImages/' . $productColor->image) }}"
-                                                        style="max-height:50px" alt=""></td>
-
+                                                <td class="text-center">{{ $admin->id }}</td>
+                                                <td class="text-center">{{ $admin->name }}</td>
+                                                <td class="text-center">{{ $admin->email }}</td>
+                                                <td class="text-center">
+                                                    <ul class="table-controls">
+                                                        @foreach($admin->roles as $role)
+                                                        <li>
+                                                    {{ $role->roleData->name }}
+                                                        </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </td>
+                                                <td class="text-center">
+                                                    @if($admin->status)
+                                                    <span class="text-success">Activated</span>
+                                                    @else
+                                                    <span class="text-danger">Not Activated</span>
+                                                    @endif
+                                                </td>
+                                                <td style="direction:ltr" class="text-center">{{ $admin->created_at->diffForHumans() }}</td>
                                                 <td class="text-center">
                                                     <ul class="table-controls">
                                                         <li>
-                                                            <form method="get"
-                                                                action="{{ route('admin.productColor.editPage', $productColor->id) }}">
-                                                                <button class="btn btn-dark" type="submit"><svg
-                                                                        xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" viewBox="0 0 24 24" fill="none"
-                                                                        stroke="currentColor" stroke-width="2"
-                                                                        stroke-linecap="round" stroke-linejoin="round"
-                                                                        class="feather feather-edit-2">
-                                                                        <path
-                                                                            d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z">
-                                                                        </path>
-                                                                    </svg></button>
+                                                            <form method="post"
+                                                                action="{{ route('owner.admins.editStatus', $admin->id) }}">
+                                                                @csrf
+                                                                @if($admin->status)
+                                                                <button class="btn btn-danger" type="submit">Ban</button>
+                                                                @else
+                                                                <button class="btn btn-success" type="submit">Activate</button>
+                                                                @endif
                                                             </form>
                                                         </li>
                                                         <li>
                                                             <form method="post"
-                                                                action="{{ route('admin.productcolor.delete', $productColor->id) }}">
+                                                                action="{{ route('owner.admins.delete', $admin->id) }}">
                                                                 @method('DELETE')
                                                                 @csrf
                                                                 <button class="btn btn-dark" type="submit"><svg
@@ -178,7 +165,7 @@
                                     </tbody>
                                 </table>
                             @else
-                                <h2>There is no Product Color Yet !</h2>
+                                <h2>There is no Admins Yet !</h2>
                             @endif
                         </div>
 

@@ -65,19 +65,22 @@
                                     <div class="form-group">
                                         <label for="t-text">Quantity :</label>
                                         <div class="mb-4">
-                                            <input id="demo6" type="number" value="{{ $productColorItem->quantity }}"
-                                                name="quantity" class="input-sm">
+                                            
+                                            <input id="demo6" type="number" name="quantity" class="input-sm form-control" value="{{ $productColorItem->quantity }}">
+
                                         </div>
 
 
                                     </div>
                                     
-                                    <div class="form-group">
+                                    <div class="form-group mb-4 mt-3">
                                         <label for="formFile" class="form-label">Image :</label>
-                                        <input type="hidden" name="image" value="{{ $productColorItem->image }}">
-                                            <input id="formFile" name="newImage" type="file"
-                                                class="form-control" accept="image/*">
-                                        
+                                        <input type="hidden" name="main_image" value="{{ $productColorItem->image }}">
+                                        <input id="formFile" name="newImage" type="file" class="form-control"
+                                            accept="image/*">
+                                            <div class="w-50 m-auto my-3"><img class="w-100 mt-3"
+                                                src="{{ asset('images/ProductcolorImages/' . $productColorItem->image) }}"
+                                                alt="nice"></div>
                                     </div>
                                     <button class="btn btn-warning mt-3" type="submit">Update</button>
                                 </form>

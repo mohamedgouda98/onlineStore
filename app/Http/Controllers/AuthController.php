@@ -30,8 +30,8 @@ class AuthController extends Controller
             'email' => 'required',
             'password'=>'required'
         ]);
-
         $userData = $request->only('email', 'password');
+        $userData['status']=1;
         if(Auth::attempt($userData))
         {
             return redirect(route('admin.home'));
@@ -44,6 +44,7 @@ class AuthController extends Controller
     public function userLogin(Request $request)
     {
         $userData = $request->only('email', 'password');
+        $userData['status']=1;
         if(Auth::attempt($userData))
         {
             return redirect(route('user.account'));
