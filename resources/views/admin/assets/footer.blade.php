@@ -15,6 +15,7 @@
 <script src="{{ asset('adminAssets/assets/js/custom.js') }}"></script>
 <!-- END GLOBAL MANDATORY SCRIPTS -->
 
+@stack('scriptsBottom')
 <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
 <script src="{{ asset('adminAssets/plugins/apex/apexcharts.min.js') }}"></script>
 <script src="{{ asset('adminAssets/assets/js/dashboard/dash_1.js') }}"></script>

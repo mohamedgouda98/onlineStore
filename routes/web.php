@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
@@ -38,6 +39,11 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['auth', 'adminAuth']], functi
         Route::delete('/delete/{id}',[ProductColorController::class,'delete'])->name('admin.productcolor.delete');
     });
 
+    // address
+    Route::get('/addresses/allusers', [AddressController::class,'indexView'])->name('admin.address.view');
+    Route::post('/address/add', [AddressController::class,'addAddress'])->name('admin.address.add');
+    Route::delete('/address/delete/{id}', [AddressController::class,'deleteAddress'])->name('admin.address.delete');
+    Route::put('/address/update/{id}', [AddressController::class,'updateAddress'])->name('admin.address.update');
 });
 
 Route::group(['prefix'=> 'user', 'middleware' => 'auth'], function(){
