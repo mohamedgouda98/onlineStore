@@ -112,7 +112,7 @@
                                         </div>
                                         <div class="product-price">
                                             <h3><span>EGP</span>{{$product->price}}</h3>
-                                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                                            <a class="btn" href="{{route('product.details', [$product->slug])}}"><i class="fa fa-shopping-cart"></i>Buy Now</a>
                                         </div>
                                     </div>
                                 </div>

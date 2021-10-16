@@ -19,7 +19,7 @@ class CreateOrdersTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
             $table->unsignedBigInteger('address_id');
             $table->foreign('address_id')->references('id')->on('addresses')->onDelete('CASCADE');
-            $table->double('total-price');
+            $table->double('total_price');
             $table->boolean('status');
             $table->timestamps();
         });

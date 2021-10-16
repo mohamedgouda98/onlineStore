@@ -45,7 +45,11 @@ Route::group(['prefix'=> 'user', 'middleware' => 'auth'], function(){
        return view('my-account');
    })->name('user.account');
 
-   Route::post('cart/add', [OrderController::class, 'addToCart'])->name('cart.add');
+    Route::get('cart', [OrderController::class, 'index'])->name('cart.index');
+    Route::post('cart/add', [OrderController::class, 'addToCart'])->name('cart.add');
+    Route::delete('cart/delete', [OrderController::class, 'deleteCart'])->name('cart.delete');
+    Route::put('cart/update', [OrderController::class, 'updateCart'])->name('cart.update');
+    Route::post('cart/checkout', [OrderController::class, 'checkoutCart'])->name('cart.checkout');
 
 });
 

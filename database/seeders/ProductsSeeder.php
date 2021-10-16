@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +15,11 @@ class ProductsSeeder extends Seeder
      */
     public function run()
     {
+        Category::create([
+            'name' =>'test',
+            'image' => 'test.png',
+            'icon' => 'test'
+        ]);
         $products = [
             ['name' => 'test', 'main_image' =>'test1.png', 'price' => 10, 'category_id'=>1, 'slug'=> 'test', 'description' => 'testing', 'status'=> 1],
             ['name' => 'test', 'main_image' =>'test1.png', 'price' => 10, 'category_id'=>1, 'slug'=> 'test', 'description' => 'testing', 'status'=> 1],

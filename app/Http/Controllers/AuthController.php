@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\ApiResponseTrait;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\UserRole;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
+    use ApiResponseTrait;
 
     public function adminLoginPage()
     {
@@ -43,15 +45,40 @@ class AuthController extends Controller
 
     public function userLogin(Request $request)
     {
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+
         $userData = $request->only('email', 'password');
         if(Auth::attempt($userData))
         {
             return redirect(route('user.account'));
         }
-        session()->flash('error', 'Email or Password Invalid');
-        return redirect(route('user.loginPage'));
+
+        return redirect()->back()->withErrors(['auth', 'Email or Password Invalid']);
 
     }
+
+    public function login()
+    {
+        $credentials = request(['email', 'password']);
+
+        if (! $token = auth()->attempt($credentials)) {
+            return $this->apiResponse(401, 'Unauthorized');
+        }
+
+        return $this->apiResponse(200, 'done', null, $token);
+    }
+
+//    protected function respondWithToken($token)
+//    {
+//        return response()->json([
+//            'access_token' => $token,
+//            'token_type' => 'bearer',
+//            'expires_in' => auth()->factory()->getTTL() * 60
+//        ]);
+//    }
 
     public function register(Request $request)
     {
