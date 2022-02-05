@@ -9,8 +9,9 @@ class Product extends Model
 {
     use HasFactory;
 
-    public function colors()
-    {
-        return $this->hasMany(ProductColor::class, 'product_id', 'id')->with('color');
+    protected $fillable = ['name','slug','price','main_image','description','status','category_id'];
+
+    public function category(){
+        return $this->belongsTo(Category::class,'category_id','id');
     }
 }
